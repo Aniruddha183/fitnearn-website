@@ -1,0 +1,29 @@
+.signup-gif img{
+    width: 585px;
+    margin-left: 0px;
+height: 512px;
+
+}
+.signup-gif{
+    margin-top: 150px;
+    margin-left: 190px;
+}
+
+.form{
+    margin-left: 200px;
+    margin-top: -5px;
+}
+
+.google{
+    border-radius: 27px;
+    border: 1px solid #121212;
+    background: #f2f0f0;
+    width: 397px;
+    height: 70px;
+    flex-shrink: 0;
+    text-align: center;
+    color: #686868;
+      margin-left: 0px;
+    font-family: Raleway;
+    font-size: 22px;
+}
