@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react';
 import logo from "../assets/Ellipse_2.png"
 import "./Navbar.css"
 import { Link, useLocation } from 'react-router-dom';
@@ -7,9 +7,15 @@ const Navbar = () => {
 
   const location = useLocation();
 
+  const [showMenu, setShowMenu] = useState(false);
+
+  
+  const toggleMenu = () => {
+    setShowMenu(!showMenu);
+  };
 
   const renderNavList = () => {
-    if (location.pathname === '/' || location.pathname === '/signup'|| location.pathname === '/forgotpassword'|| location.pathname === '/forgotpassword1') {
+    if (location.pathname === '/' || location.pathname === '/signup'|| location.pathname === '/forgotpassword'|| location.pathname === '/forgotpassword1' || location.pathname === '/verify-email') {
       return null; // If on login or signup page, return null to hide nav list
     } else {
       return (

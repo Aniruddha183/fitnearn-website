@@ -12,6 +12,8 @@ import Profile from './pages/Profile'
 import Home from './pages/Home'
 import About from './pages/About'
 import FileUpload from "./pages/FileUpload"
+import VerifyEmail from './pages/VerifyEmail'
+import PhoneVerification from './pages/PhoneVerification'
 function App() {
 
 
@@ -22,6 +24,8 @@ function App() {
       <Routes>
       <Route path="/" element={<Login/>}/>
       <Route path="/1" element={<FirebaseAuthDetails/>}/>
+      <Route path="/verify-email" element={<VerifyEmail/>}/>
+      <Route path="/verify-phone" element={<PhoneVerification/>}/>
       <Route path="/forgotpassword" element={<ForgotPassword/>}/>
       <Route path="/forgotpassword1" element={<ForgotPassword1/>}/>
       <Route path="/signup" element={<SignUp/>}/>
@@ -29,10 +33,7 @@ function App() {
       <Route path="/about" element={<About/>}/>
       <Route path="/profile" element={<Profile/>}/>
       <Route path="/fileupload" element={<FileUpload/>}/>
-      {/* <FirebaseAuthDetails/>
-      <ForgotPassword/>
-      <ForgotPassword1/>
-      <SignUp/> */}
+
       </Routes>
     </Router>
     </>

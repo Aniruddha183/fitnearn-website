@@ -23,6 +23,7 @@
     "nodemailer": "^6.9.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-pincode": "^1.1.3",
     "react-router-dom": "^6.21.0"
   },
   "devDependencies": {

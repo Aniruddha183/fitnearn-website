@@ -3,10 +3,13 @@ import { useState,useEffect,useRef } from "react";
 import "./SignUp.css";
 import InputBox from "../components/InputBox";
 import { auth,provider } from "../Firebase";
-import { createUserWithEmailAndPassword,sendEmailVerification } from "firebase/auth";
+import { createUserWithEmailAndPassword,sendEmailVerification, signInWithPhoneNumber, } from "firebase/auth";
 import { signInWithPopup } from "firebase/auth";
-import axios from "axios"; // Import Axios for making API requests
+import axios from "axios";
 import {Link,useNavigate} from "react-router-dom"
+import Pincode from 'react-pincode';
+
+
 
 
 
@@ -22,7 +25,16 @@ const SignUp = () => {
   const [pincode, setPincode] = useState("");
   const [age, setAge] = useState();
 
+  const [pincodeData, setPincodeData] = useState('');
+
   const navigate = useNavigate();
+ 
+
+
+
+  
+  
+
 
   //sign in with google
   const [value, setValue] = useState("");
@@ -48,7 +60,9 @@ const SignUp = () => {
 
         //send email confirmation
         sendEmailVerification(userCredential.user)
-        navigate('/home')
+        navigate('/verify-email')
+
+
         const userData = {
           name,
           email,
@@ -132,14 +146,19 @@ const SignUp = () => {
           placeholder=" Your password"
           value={password}
           type="password"
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) => {setPassword(e.target.value)}}
         />
         <br />
+        
       <InputBox
   title="Enter Phone Number"
-  placeholder="Your phone number"
-  value={phoneNumber}
   type="number"
+  pattern="[1-9]{1}[0-9]{9}"
+
+  maxLength="10"
+  placeholder="Enter mobile number"
+  value={phoneNumber}
+  
   onChange={(e) => setPhoneNumber(e.target.value)}
 />
 <br />
@@ -158,6 +177,8 @@ const SignUp = () => {
   value={age}
   onChange={(e) => setAge(e.target.value)}
 />
+
+
 <br />
 <InputBox
   title="Enter your Address"
@@ -167,12 +188,35 @@ const SignUp = () => {
   onChange={(e) => setAddress(e.target.value)}
 />
 <br />
+<span style={{fontFamily:"Raleway",fontSize:"22px"}}>Enter Your Pincode</span>
+<Pincode
+        invalidError="Please check pincode"
+        lengthError="Check length"
+        getData={(data) => {
+          setPincodeData(data)
+          const { city, state ,pincode} = data;
+          setCity(city);
+          setState(state);
+          setPincode(pincode)
+
+     
+        }}
+      />
+
+{/* <InputBox
+  title="Enter your Pincode"
+  placeholder="Your Pincode"
+  type="number"
+  value={pincode}
+  onChange={(e) => {setPincode(e.target.value); {handlePincodeChange}}}
+/>
+<br />
 <InputBox
   title="Enter your City"
   type="text"
   placeholder="Your City"
   value={city}
-  onChange={(e) => setCity(e.target.value)}
+  onChange={(e) => {setCity(e.target.value);{handleCityChange}}}
 />
 <br />
 <InputBox
@@ -180,17 +224,10 @@ const SignUp = () => {
   placeholder="Your State"
   type="text"
   value={state}
-  onChange={(e) => setState(e.target.value)}
-/>
-<br />
-<InputBox
-  title="Enter your Pincode"
-  placeholder="Your Pincode"
-  type="number"
-  value={pincode}
-  onChange={(e) => setPincode(e.target.value)}
-/>
-<br />
+  onChange={(e) => {setState(e.target.value);{handleStateChange}}}
+/> */}
+
+
 
 
         <h6 style={{ marginTop: "10px", marginLeft: "0px" }}>
@@ -233,6 +270,7 @@ const SignUp = () => {
         >
           <button style={{marginLeft:"130px"}} onClick={signUp}>Sign Up</button>
           <small style={{ fontSize: "18px" }}>or</small>
+         <Link to="/verify-phone"> <button className="google">Sign In usign Phone</button></Link>
           {value? <button className="google">Alredy sign in with google</button>: <button onClick={signInWithGoogle}className="google">Login with Google</button>}
          
           <h6

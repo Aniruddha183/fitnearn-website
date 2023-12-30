@@ -10,7 +10,11 @@ import Home from "./Home";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
+
+
+
 
   const signIn = (e) =>{ e.preventDefault();
   signInWithEmailAndPassword(auth, email, password)
@@ -21,6 +25,15 @@ const Login = () => {
     })
     .catch((error) => {
       console.log(error);
+
+      if (
+        error.code === "auth/wrong-password" ||
+        error.code === "auth/user-not-found"
+      ) {
+        setError("Invalid email or password. Please try again.");
+      } else {
+        setError("An error occurred. Please Check Email and Password");
+      }
     });
   }
   return (
@@ -47,11 +60,15 @@ const Login = () => {
             <input
               type="password"
               value={password}
-              onChange={(e)=>setPassword(e.target.value)}
+              onChange={(e)=>{setPassword(e.target.value)}}
               name=""
               id=""
               placeholder="   Enter your password"
             ></input>
+               {/* Display error message if present */}
+          {error && <p style={{ color: "red" }}>{error}</p>}
+          {/* ... */}
+
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="23"
@@ -100,10 +117,7 @@ const Login = () => {
           >
             <button onClick={signIn}   type="submit" className="login-btn">Login</button>
             <small style={{ fontSize: "18px" }}>or</small>
-            <input
-              className="continue-with"
-              placeholder="continue with phone numbner"
-            ></input>
+           
             <h6 style={{ fontSize: "18px" }}>
               Dont have an account ?
                <Link to="/signup"><span style={{ color: "blue" }}> sign up</span></Link>
